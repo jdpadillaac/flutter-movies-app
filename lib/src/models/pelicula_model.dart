@@ -64,4 +64,12 @@ class Pelicula {
     overview = json['overview'];
     releaseDate = json['release_date'];
   }
+
+  String getPosterImge() {
+    if (posterPath == null) {
+      return 'https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/$posterPath';
+    }
+  }
 }

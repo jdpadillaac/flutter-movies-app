@@ -9,6 +9,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    peliculasProvider.getPopulares();
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.indigoAccent,
@@ -55,12 +57,15 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10.0),
-          FutureBuilder(
-            future: peliculasProvider.getPopulares(),
+          StreamBuilder(
+            stream: peliculasProvider.popularesStream,
             builder:
                 (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
               if (snapshot.hasData) {
-                return PageViewHorizontal(peliculas: snapshot.data);
+                return PageViewHorizontal(
+                  peliculas: snapshot.data,
+                  siguientePagina: peliculasProvider.getPopulares,
+                );
               } else {
                 return Center(child: CircularProgressIndicator());
               }

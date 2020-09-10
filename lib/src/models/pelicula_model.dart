@@ -72,4 +72,12 @@ class Pelicula {
       return 'https://image.tmdb.org/t/p/w500/$posterPath';
     }
   }
+
+  String getBackGroundImage() {
+    if (backdropPath == null) {
+      return 'https://bhmlib.org/wp-content/themes/cosimo-pro/images/no-image-box.png';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/$backdropPath';
+    }
+  }
 }

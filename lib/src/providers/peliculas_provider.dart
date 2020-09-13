@@ -3,11 +3,12 @@ import 'dart:convert';
 
 import 'package:peliculas/src/models/pelicula_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:peliculas/src/providers/providers.dart';
+
 
 class PelicupasProvider {
-  String _apiKey = 'dd67162a2b4ffb68267a204a4ec24d18';
-  String _url = 'api.themoviedb.org';
-  String _language = 'es-ES';
+  // String _apiKey = 'dd67162a2b4ffb68267a204a4ec24d18';
+
 
   int _popularesPage = 0;
   bool _loading = false;
@@ -24,8 +25,8 @@ class PelicupasProvider {
   }
 
   Future<List<Pelicula>> getEnCines() async {
-    final url = Uri.https(_url, '3/movie/now_playing',
-        {'api_key': _apiKey, 'language': _language});
+    final url = Uri.https(apiUrl, '3/movie/now_playing',
+        {'api_key': apiKey, 'language': apiLanguage});
 
     final resp = await http.get(url);
     final decodeData = json.decode(resp.body);
@@ -45,9 +46,9 @@ class PelicupasProvider {
     
     print('Cargando sigueintes');
 
-    final url = Uri.https(_url, '3/movie/popular', {
-      'api_key': _apiKey,
-      'language': _language,
+    final url = Uri.https(apiUrl, '3/movie/popular', {
+      'api_key': apiKey,
+      'language': apiLanguage,
       'page': _popularesPage.toString()
     });
 

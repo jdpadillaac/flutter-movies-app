@@ -11,8 +11,11 @@ class MovieDeDetail extends StatelessWidget {
       slivers: [
         _createAppBar(movie),
         SliverList(
-          delegate: SliverChildListDelegate(
-              [SizedBox(height: 10.0), _posterTile(movie)]),
+          delegate: SliverChildListDelegate([
+            SizedBox(height: 10.0),
+            _posterTile(context, movie),
+            _movieDescription(movie)
+          ]),
         )
       ],
     ));
@@ -40,14 +43,49 @@ class MovieDeDetail extends StatelessWidget {
     );
   }
 
-  Widget _posterTile(Pelicula movie) {
+  Widget _posterTile(BuildContext context, Pelicula movie) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(children: <Widget>[
-        Image(
-          image: NetworkImage(movie.getPosterImge()),
-          height: 150.0,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: Image(
+            image: NetworkImage(movie.getPosterImge()),
+            height: 150.0,
+          ),
+        ),
+        SizedBox(width: 20.0),
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                movie.title,
+                style: Theme.of(context).textTheme.headline6,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(movie.originalTitle,
+                  style: Theme.of(context).textTheme.subtitle1,
+                  overflow: TextOverflow.ellipsis),
+              Row(
+                children: <Widget>[
+                  Icon(Icons.star_border),
+                  Text(movie.voteAverage.toString(),
+                      style: Theme.of(context).textTheme.subtitle1,
+                      overflow: TextOverflow.ellipsis)
+                ],
+              ),
+            ],
+          ),
         )
       ]),
+    );
+  }
+
+  Widget _movieDescription(Pelicula movie) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+      child: Text(movie.overview),
     );
   }
 }

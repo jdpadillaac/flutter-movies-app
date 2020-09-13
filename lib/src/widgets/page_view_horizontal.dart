@@ -74,7 +74,7 @@ class PageViewHorizontal extends StatelessWidget {
               placeholder: AssetImage('assets/img/loading.gif'),
               image: NetworkImage(e.getPosterImge()),
               fit: BoxFit.cover,
-              height: 132.0,
+              height: 125.0,
             ),
           ),
           SizedBox(
